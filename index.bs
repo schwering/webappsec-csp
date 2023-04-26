@@ -123,6 +123,8 @@ spec: HTML; urlPrefix: https://html.spec.whatwg.org/
   type: dfn
     for: script
       text: "parser-inserted"
+    text: autofill; url: autofill
+    text: eligible for autofill; url: eligible-for-autofill
     text: origin; url: concept-origin
     text: content security policy state; url: attr-meta-http-equiv-content-security-policy
     text: create and initialize a new document object; url: initialise-the-document-object
@@ -3440,6 +3442,53 @@ this algorithm returns normally if compilation is allowed, and throws a
        origins, which seems like a pretty reasonable thing to do.
 
   5.  Return "`Allowed`".
+
+  <h4 id="directive-shared-autofill">`shared-autofill`</h4>
+
+  The <dfn export>shared-autofill</dfn> directive specifies with which <a>origin</a> a
+  user agent may share data in a cross-origin <a>autofill</a>. The syntax for the
+  directive's name and value is described by the following ABNF:
+
+  <pre>
+    directive-name  = "shared-autofill"
+    directive-value = <a grammar>serialized-source-list</a>
+  </pre>
+
+  The following algorithm is called during the <a>eligible for autofill</a> algorithm:
+
+  <h5 id="may-document-shared-autofill-with-target-origin" algorithm dfn export>
+    May |document| share autofill with |target origin|?
+  </h5>
+
+  Given a {{Document}} (|document|) and an <a for="/">origin</a> (|target origin|) this
+  algorithm returns "`Allowed`" if an <a>autofill</a> in |document| may fill form
+  controls in cross-origin |target origin|, and "`Blocked`" otherwise:
+
+  1. Let |result| be "`Blocked`".
+
+  2.  <a for=list>For each</a> |policy| of |document|'s <a for="/">global object</a>'s
+      <a for="global object">csp list</a>:
+
+      1.  Let |source list| be `null`.
+
+      2.  If a <a>directive</a> whose <a for="directive">name</a> is
+          "`shared-autofill`" is present in |policy|'s <a for="policy">directive
+          set</a>, set |source list| to that <a>directive</a>'s
+          <a for="directive">value</a>.
+
+      3.  If |source list| is `null`, skip to the next |policy|.
+
+      4.  Let |target url| be the result of executing the <a>URL parser</a> on the
+          <a lt="ASCII serialization of an origin">ASCII serialization</a>
+          of |target origin|.
+
+      5.  If the result of executing [[#match-url-to-source-list]] on |target url|,
+          |source list|, |policy|'s [=policy/self-origin=], and `0` is "`Matches`",
+          set |result| to "`Allowed`".
+
+          Otherwise, set |result| to "`Blocked`" and break out of the loop.
+
+  3.  Return |result|.
 
   <h3 id="directives-navigation">
     Navigation Directives
