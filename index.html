@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version bf22245b8, updated Tue Apr 18 15:53:37 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/CSP3/" rel="canonical">
-  <meta content="c20c6a9b3094dd9ae4a6386d8d86c47ff3a60036" name="document-revision">
+  <meta content="65e0dd9c705ecf73f295c137d91c338a864097ab" name="document-revision">
 <style>
   ul.toc ul ul ul {
     margin: 0 0 0 2em;
@@ -3216,9 +3216,9 @@ directive-value = <a data-link-type="grammar" href="#grammardef-serialized-sourc
        <li data-md>
         <p>Let <var>target origin</var> be the result of executing the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser" id="ref-for-concept-url-parser①">URL parser</a> on the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">ASCII serialization</a> of <var>target document</var>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-origin" id="ref-for-concept-document-origin">origin</a>.</p>
        <li data-md>
-        <p>If the result of executing <a href="#match-url-to-source-list">§ 6.7.2.6 Does url match source list in origin with redirect count?</a> on <var>target origin</var>, <var>source list</var>, <var>policy</var>’s <a data-link-type="dfn" href="#policy-self-origin" id="ref-for-policy-self-origin②">self-origin</a>, and <code>0</code> is "<code>Does Not Match</code>",
-  set <var>result</var> to "<code>Blocked</code>" and break out of the loop.</p>
-        <p>Otherwise, set <var>result</var> to "<code>Allowed</code>".</p>
+        <p>If the result of executing <a href="#match-url-to-source-list">§ 6.7.2.6 Does url match source list in origin with redirect count?</a> on <var>target origin</var>, <var>source list</var>, <var>policy</var>’s <a data-link-type="dfn" href="#policy-self-origin" id="ref-for-policy-self-origin②">self-origin</a>, and <code>0</code> is "<code>Matches</code>",
+  set <var>result</var> to "<code>Allowed</code>".</p>
+        <p>Otherwise, set <var>result</var> to "<code>Blocked</code>" and break out of the loop.</p>
       </ol>
      <li data-md>
       <p>Return <var>result</var>.</p>
